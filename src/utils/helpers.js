@@ -25,3 +25,6 @@ export const getRandomColor = () => {
 
 export const getRandomCondition = (min = 1, max = 100) => 
   Math.floor(Math.random() * (max - min + 1)) + min;
+
+export const getRandomHorses = (horses, count) => 
+  [...horses].sort(() => Math.random() - 0.5).slice(0, count);

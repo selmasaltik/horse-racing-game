@@ -1,8 +1,20 @@
 <script setup>
+  import { useStore } from 'vuex';
+
   import HorseList from './components/HorseList.vue';
-  import RaceField from './components/RaceField.vue';
+  import RaceTrack from './components/RaceTrack.vue';
   import Program from './components/Program.vue';
   import Results from './components/Results.vue';
+
+  const store = useStore();
+
+  const generateProgram = () => {
+    store.dispatch('program/generateRaceSchedule');
+  };
+
+  // const startPauseRace = () => {
+  //   store.dispatch('race/startPauseRace');
+  // };
 </script>
 
 <template>
@@ -10,16 +22,19 @@
     <header class="header">
       <h1 class="header__title">Horse Racing</h1>
       <div class="header__buttons">
-        <button class="header__button">Generate Program</button>
-        <button class="header__button">Start / Pause</button>
+        <button class="header__button" @click="generateProgram">Generate Program</button>
+        <button class="header__button" @click="startPauseRace">Start / Pause</button>
       </div>
     </header>
+    
     <aside class="sidebar">
       <HorseList />
     </aside>
+    
     <main class="main-content">
-      <RaceField />
+      <!-- <RaceTrack /> -->
     </main>
+    
     <aside class="right-sidebar">
       <Program />
       <Results />
@@ -51,6 +66,7 @@
   .header__title {
     font-size: 24px;
     margin: 0;
+    color: black;
   }
 
   .header__buttons {
@@ -78,21 +94,23 @@
     grid-area: sidebar;
     background-color: #f7f7f7;
     padding: 10px;
+    color: black;
   }
 
   .main-content {
     grid-area: main-content;
     background-color: #eee;
     padding: 10px;
+    color: black;
   }
 
   .right-sidebar {
     grid-area: right-sidebar;
     background-color: #f7f7f7;
     padding: 10px;
-
     display: flex;
     gap: 10px;
+    color: black;
   }
 
   .right-sidebar > * {
