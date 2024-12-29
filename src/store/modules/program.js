@@ -1,9 +1,10 @@
-import { getRandomCondition, horseNames, getRandomHorses } from '@/utils/helpers';
+import horses from './horses';  
+import { getRandomHorses } from '@/utils/helpers';
 
 export default {
   namespaced: true,
   state: {
-    raceProgram: [],
+    raceProgram: [],  
   },
   mutations: {
     setRaceProgram(state, program) {
@@ -12,11 +13,6 @@ export default {
   },
   actions: {
     generateRaceSchedule({ commit }) {
-      const horses = horseNames.map((name) => ({
-        name,
-        condition: getRandomCondition(1, 100),
-      }));
-
       const laps = [
         { distance: 1200 },
         { distance: 1400 },
@@ -27,7 +23,8 @@ export default {
       ];
 
       const raceProgram = laps.map((lap) => {
-        const selectedHorses = getRandomHorses(horses, 10);
+        const selectedHorses = getRandomHorses(horses.state.horses, 10);
+
         const sortedHorses = selectedHorses.sort((a, b) => b.condition - a.condition);
 
         return {

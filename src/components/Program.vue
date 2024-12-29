@@ -3,7 +3,6 @@
   import { useStore } from 'vuex';
 
   const store = useStore();
-  
   const raceProgram = computed(() => store.state.program.raceProgram);
 </script>
 
@@ -39,18 +38,14 @@
 </template>
 
 <style scoped lang="scss">
-  .program {
-    padding: 20px;
-    font-family: Arial, sans-serif;
-  }
-
-  .program__title {
+.program {
+  &__title {
     font-size: 24px;
     margin-bottom: 20px;
     color: #333;
   }
 
-  .program__table-wrapper {
+  &__table-wrapper {
     max-height: 700px; 
     overflow-y: auto; 
     border: 1px solid #ddd; 
@@ -58,47 +53,36 @@
     border-radius: 8px;
   }
 
-  .program__table {
+  &__table {
     width: 100%;
     border-collapse: collapse;
-    background-color: #fff;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+
+    th, td {
+      padding: 12px 15px;
+      border: 1px solid #dfdede;
+      text-align: center;
+    }
+
+    th {
+      color: #333;
+      font-weight: bold;
+      background-color: #dfdede;
+      position: sticky;
+      top: -1px;
+      z-index: 1;
+    }
+
+    td {
+      vertical-align: middle;
+    }
   }
 
-  .program__table th,
-  .program__table td {
-    padding: 12px 15px;
-    border: 1px solid #ddd;
-    text-align: left;
-  }
-
-  .program__table th {
-    background-color: #f2f2f2;
-    color: #333;
+  &__lap-title {
     font-weight: bold;
-  }
-
-  .program__lap-title {
-    font-weight: bold;
-    text-align: center;
-    background-color: #007bff;
+    background-color: tomato;
     color: black;
     padding: 10px;
   }
-
-  .program__table td {
-    background-color: #f9f9f9; 
-  }
-
-  .program__table tr:nth-child(even) td {
-    background-color: #f1f1f1; 
-  }
-
-  .program__table tr:hover td {
-    background-color: #d3d3d3;
-  }
-
-  .program__table td {
-    vertical-align: middle;
-  }
+}
 </style>

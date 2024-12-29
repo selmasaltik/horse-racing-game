@@ -34,55 +34,51 @@
 
 <style scoped lang="scss">
   .horse-list {
-    padding: 20px;
-    background-color: #f7f7f7;
-    border-radius: 8px;
-  }
-
-  .horse-list__title {
+    &__title {
     font-size: 24px;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     color: black;
   }
 
-  .horse-list__table-wrapper {
+  &__table-wrapper {
     max-height: 700px;
     overflow-y: auto; 
     border: 1px solid #ddd; 
-    border-radius: 4px;
+    border-radius: 8px;
   }
 
-  .horse-list__table {
+  &__table {
     width: 100%;
     border-collapse: collapse;
   }
 
-  .horse-list__table th, .horse-list__table td {
+  &__table th, &__table td {
     padding: 8px;
-    text-align: left;
+    text-align: center;
     border: 1px solid #ddd;
   }
 
-  .horse-list__table th {
+  &__table th {
     background-color: #dfdede;
     color: black;
     position: sticky;
-    top: 0; 
+    top: -1px; 
     z-index: 1;
   }
 
-  .horse-list__table td {
+  &__table td {
     background-color: #fff;
     color: black;
   }
 
-  .horse-list__table td:first-child {
+  &__table td:first-child {
     text-transform: capitalize;
   }
 
-  .horse-list__table td:nth-child(3) {
+  &__table td:nth-child(3) {
     font-weight: bold;
     color: #fff;
+  }
   }
 </style>
 
