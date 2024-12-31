@@ -1,0 +1,18 @@
+@use './variables' as *;
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+}
+
+html, body {
+  background-color: $wild-sand;
+  background-image: url('../assets/images/horse-banner.webp');
+  background-position: left;
+  background-size: contain;
+  height: 100%;
+}

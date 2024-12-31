@@ -1,0 +1,60 @@
+@use './variables' as *;
+
+.race-results {
+  &__title {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: $mine-shaft;
+  }
+
+  &__no-result {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    p {
+      color: $emperor;
+      font-size: 16px;
+    }
+  }
+
+  &__table-wrapper {
+    max-height: 700px; 
+    overflow-y: auto; 
+    border: 1px solid $alto; 
+    background-color: $white;
+    border-radius: 8px;
+  }
+
+  &__table {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+
+    th, td {
+      padding: 12px 15px;
+      border: 1px solid $alto;
+      text-align: center;
+    }
+
+    th {
+      color: $mine-shaft;
+      font-weight: bold;
+      background-color: $alto;
+      position: sticky;
+      top: -1px;
+      z-index: 1;
+    }
+
+    td {
+      vertical-align: middle;
+    }
+  }
+
+  &__lap-title {
+    font-weight: bold;
+    background-color: $persimmon;
+    color: $black;
+    padding: 10px;
+  }
+}

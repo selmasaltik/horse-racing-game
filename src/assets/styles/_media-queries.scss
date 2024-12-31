@@ -1,0 +1,32 @@
+@mixin media-query($min-width) {
+  @if $min-width == 320px {
+    @media (max-width: 320px) {
+      @content;
+    }
+  }
+  @else if $min-width == 480px {
+    @media (max-width: 480px) {
+      @content;
+    }
+  }
+  @else if $min-width == 767px {
+    @media (max-width: 767px) {
+      @content;
+    }
+  }
+  @else if $min-width == 768px {
+    @media (min-width: 768px) and (max-width: 1023px) {
+      @content;
+    }
+  }
+  @else if $min-width == 1024px {
+    @media (min-width: 1024px) and (max-width: 1279px) {
+      @content;
+    }
+  }
+  @else if $min-width == 1280px {
+    @media (min-width: 1280px) {
+      @content;
+    }
+  }
+}

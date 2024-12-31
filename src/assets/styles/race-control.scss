@@ -1,0 +1,54 @@
+@use './variables' as *;
+@use './media-queries' as *;
+
+.race-control {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-image: url('../assets/images/horse-banner.webp');
+  background-position: left;
+  background-size: contain;
+  height: 100%;
+
+  @include media-query(767px) {
+    flex-direction: column;
+  }
+
+  &__title {
+  font-size: 24px;
+  margin: 0;
+  color: $white;
+  font-weight: 600;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 1);
+}
+
+&__buttons {
+  display: flex;
+  gap: 10px;
+}
+
+&__button {
+  min-width: 85px;
+  padding: 8px 16px;
+  font-size: 16px;
+  background-color: $azure-radiance;
+  color: $white;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+    &:hover {
+      background-color: $endeavour;
+    }
+
+    &:disabled {
+      background-color: $dusty-gray;
+      cursor: not-allowed;
+    }
+  }
+}
+
