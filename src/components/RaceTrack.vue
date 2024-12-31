@@ -1,61 +1,16 @@
 <script setup>
-  import { computed, ref, onMounted, watch } from 'vue';
-  import { useStore } from 'vuex';
+  import { useRaceTrack } from '../assets/composables/useRaceTrack.js';
 
-  const store = useStore();
-  const allHorses = computed(() => store.getters['horses/allHorses']); 
-  const currentRace = computed(() => store.getters['race/currentRace']); 
-  const currentRaceDetails = computed(() => store.getters['race/currentRaceDetails']); 
-  const raceInProgress = computed(() => store.getters['race/hasRaceStarted']); 
-
-  const currentRaceHorses = computed(() => {
-    const raceProgram = store.getters['race/raceProgram'];
-    const race = raceProgram[currentRace.value]; 
-    return race ? race.positions : [];
-  });
-
-  const horseProgress = ref(currentRaceHorses.value.map(() => 0)); 
-
-  const getHorseStyle = (index) => {
-    return {
-      left: `${horseProgress.value[index]}%`, 
-      transition: 'left 2s ease-in-out', 
-    };
-  };
-
-  const updateRace = () => {
-    if (!raceInProgress.value) return;
-
-    horseProgress.value = horseProgress.value.map((progress, index) => {
-      const horseCondition = currentRaceHorses.value[index].condition || 1; 
-      const raceDistance = currentRaceDetails.value.distance;
-      const speed = Math.random() * (horseCondition * 5); 
-      const newProgress = progress + speed;
-
-      if (newProgress >= 100) return 100; 
-      return newProgress;
-    });
-
-    if (horseProgress.value.every((progress) => progress === 100)) {
-      console.log('All horses have finished!');
-      store.dispatch('race/nextRace'); 
-      horseProgress.value = currentRaceHorses.value.map(() => 0); 
-    }
-  };
-
-  onMounted(() => {
-    const raceInterval = setInterval(() => {
-      updateRace();
-    }, 2000);  
-
-    watch(raceInProgress, (newValue) => {
-      if (!newValue) clearInterval(raceInterval);
-    });
-  });
-
-  watch(currentRaceHorses, () => {
-    horseProgress.value = currentRaceHorses.value.map(() => 0); 
-  });
+  const {
+    allHorses,
+    currentRace,
+    currentRaceDetails,
+    raceInProgress,
+    raceProgram,
+    currentRaceHorses,
+    horseProgress,
+    getHorseStyle
+  } = useRaceTrack();
 </script>
 
 <template>
@@ -67,7 +22,7 @@
     <div class="race-track__horse-container">
       <div
       v-for="(horse, index) in currentRaceHorses"
-      :key="horse.id"
+      :key="horse.id || index"
       class="race-track__horse-wrapper"
     >
       <div
@@ -92,86 +47,6 @@
 </template>
 
 <style scoped lang="scss">
-  .race-track {
-    position: relative;
-    width: 100%;
-    background-color: #f0f0f0;
-    border: 2px solid #ddd;
-    overflow: hidden;
-    display: grid;
-    grid-template-areas:
-      "positions horses finishLine"
-      "raceDetails raceDetails raceDetails";
-    grid-template-columns: auto 3fr auto;
-    grid-template-rows: auto 1fr;
-
-    &__positions {
-      grid-area: positions;
-      gap: 10px;
-    }
-
-    &__position {
-      width: 62px; 
-      height: 62px; 
-      display: flex; 
-      justify-content: center; 
-      align-items: center;
-      background-color: #33a22d;
-      border: 1px solid #ccc; 
-      font-size: 18px; 
-      font-weight: bold;
-      color: white;
-      transform-box: 45%;
-    }
-
-    &__horse-wrapper {
-      grid-area: horses;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      width: 100%;
-      padding: 30px 0;
-      position: relative;
-      border-bottom: 2px dashed black;
-    }
-
-    &__horse {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: absolute;
-      min-width: 50px;
-    }
-
-    &__finish-line {
-      grid-area: finishLine;
-      height: 100%;
-      width: 60px;
-      background-color: #fff;
-      border-left: 2px solid black;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 1;
-    }
-
-    &__finish-text {
-      font-size: 24px;
-      font-weight: bold;
-      color: red;
-      transform: rotate(-90deg);
-      text-transform: uppercase;
-    }
-
-    &__race-details {
-      grid-area: raceDetails;
-      text-align: center;
-      color: red;
-      font-size: 18px;
-      font-weight: 600;
-      padding: 10px;
-      border-top: 2px solid #ddd;
-    }
-  }
+  @use '../assets/styles/race-track.scss';
 </style>
 
