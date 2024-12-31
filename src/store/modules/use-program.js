@@ -1,4 +1,4 @@
-import horses from './horses';  
+import horses from './use-horses';  
 import { getRandomHorses, laps } from '@/utils/helpers';
 
 export default {

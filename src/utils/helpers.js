@@ -18,9 +18,11 @@ const usedColors = new Set();
 
 export const getRandomColor = () => {
   const colors = [
-    'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'Pink', 'Brown',
-    'Black', 'Aqua', 'Cyan', 'Magenta', 'Gray', 'Indigo', 'Turquoise',
-    'Lime', 'Gold', 'Teal', 'Silver', 'Violet',
+    'Aqua', 'Black', 'Blue', 'Brown', 
+    'Crimson', 'Gold', 'Gray', 'Green', 
+    'Indigo', 'Lime', 'Magenta','Navy', 
+    'Orange', 'Pink', 'Purple', 'Red', 
+    'Tomato', 'Turquoise', 'Violet', 'Yellow',
   ];
   
   let color;
