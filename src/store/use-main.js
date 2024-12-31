@@ -6,8 +6,8 @@ import race from './modules/use-race';
 
 export default createStore({
   modules: {
-    horses,
-    program,
-    race
+    horses,  // Module to manage horses-related state and actions
+    program, // Module to manage the race program logic and data
+    race     // Module to handle the race state and progress
   }
 });
