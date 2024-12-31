@@ -1,10 +1,10 @@
 import horses from './horses';  
-import { getRandomHorses } from '@/utils/helpers';
+import { getRandomHorses, laps } from '@/utils/helpers';
 
 export default {
   namespaced: true,
   state: {
-    raceProgram: [],  
+    raceProgram: [], 
   },
   mutations: {
     setRaceProgram(state, program) {
@@ -13,23 +13,12 @@ export default {
   },
   actions: {
     generateRaceSchedule({ commit }) {
-      const laps = [
-        { distance: 1200 },
-        { distance: 1400 },
-        { distance: 1600 },
-        { distance: 1800 },
-        { distance: 2000 },
-        { distance: 2200 },
-      ];
-
       const raceProgram = laps.map((lap) => {
         const selectedHorses = getRandomHorses(horses.state.horses, 10);
 
-        const sortedHorses = selectedHorses.sort((a, b) => b.condition - a.condition);
-
         return {
           distance: lap.distance,
-          positions: sortedHorses.map((horse) => horse),
+          positions: selectedHorses.map((horse) => horse),
         };
       });
 
@@ -38,7 +27,7 @@ export default {
   },
   getters: {
     raceProgram(state) {
-      return state.raceProgram;
+      return state.raceProgram;  
     },
   },
 };

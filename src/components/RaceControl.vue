@@ -21,6 +21,7 @@
 };
 
 const raceProgram = computed(() => store.getters['race/raceProgram']);
+const currentRace = computed(() => store.getters['race/currentRace']);
 const raceInProgress = computed(() => store.getters['race/hasRaceStarted']);
 </script>
 
@@ -31,7 +32,7 @@ const raceInProgress = computed(() => store.getters['race/hasRaceStarted']);
       <button class="race-control__button" @click="generateProgram">Generate Program</button>
       <button 
         class="race-control__button" 
-        :disabled="!isProgramGenerated" 
+        :disabled="!isProgramGenerated || currentRace === 6" 
         @click="startPauseRace"
       >
         {{ raceInProgress ? 'Pause' : 'Start' }}
@@ -43,6 +44,7 @@ const raceInProgress = computed(() => store.getters['race/hasRaceStarted']);
 <style scoped lang="scss">
   .race-control {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
@@ -84,5 +86,11 @@ const raceInProgress = computed(() => store.getters['race/hasRaceStarted']);
       cursor: not-allowed;
     }
   }
+  }
+
+  @media (min-width: 768px) {
+    .race-control  {
+     flex-direction: row;
+    }
   }
 </style>

@@ -20,7 +20,7 @@
         <tbody>
           <template v-for="(lap, index) in raceProgram" :key="index">
             <tr>
-              <td colspan="3" class="program__lap-title">
+              <td colspan="2" class="program__lap-title">
                 {{ index + 1 }}ST Lap - {{ lap.distance }}m
               </td>
             </tr>
@@ -41,7 +41,7 @@
 .program {
   &__title {
     font-size: 24px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     color: #333;
   }
 

@@ -11,8 +11,10 @@
   const store = useStore();
 
   const raceProgram = computed(() => store.getters['race/raceProgram']);
+  const currentRace = computed(() => store.getters['race/currentRace']);
   const raceInProgress = computed(() => store.getters['race/hasRaceStarted']);
   const isProgramGenerated = computed(() => raceProgram.value.length > 0);
+  const raceResults = computed(() => store.getters['race/raceResults']); 
 </script>
 
 <template>
@@ -25,15 +27,14 @@
     </aside>
     <main class="main-content">
       <RaceTrack 
-        v-if="isProgramGenerated" 
-        :program="raceProgram" 
-        :raceInProgress="raceInProgress" 
+        v-if="isProgramGenerated && currentRace < 6" 
       />
-      <p v-else class="main-content__info">Please create a schedule.</p>
+      <p v-if="!isProgramGenerated" class="main-content__info">Please create a schedule.</p>
+      <p v-if="isProgramGenerated && currentRace === 6" class="main-content__info">Race is finished.</p> 
     </main>
     <aside class="right-sidebar" v-if="isProgramGenerated">
       <Program :program="raceProgram" />
-      <Results />
+      <Results :raceResults="raceResults" />
     </aside>
   </div>
 </template>
@@ -42,18 +43,24 @@
   .app-container {
     display: grid;
     grid-template-areas:
-      "header header header header"
-      "sidebar main-content right-sidebar right-sidebar";
-    grid-template-columns: 1fr 2fr 1fr 1fr;
-    grid-template-rows: auto 1fr;
-    height: 100vh; 
-    overflow-y: hidden;
+      "header"
+      "sidebar"
+      "main-content"
+      "right-sidebar";
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr 1fr 1fr;
+    height: 100vh;
   }
 
   .header {
     grid-area: header;
     min-height: 150px;
     height: auto;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);  
   }
 
   .sidebar,
@@ -87,11 +94,35 @@
   .right-sidebar {
     grid-area: right-sidebar;
     display: flex;
-    flex-direction: row;
-    gap: 10px;
+    flex-direction: column;
+    gap: 20px;
   }
 
   .right-sidebar > * {
     flex: 1; 
+  }
+
+  @media (min-width: 768px) {
+    .app-container {
+      grid-template-areas:
+        "header header header header"
+        "sidebar main-content right-sidebar right-sidebar";
+      grid-template-columns: 1fr 2fr 1fr 1fr;
+      grid-template-rows: auto 1fr;
+    }
+
+    .right-sidebar {
+      flex-direction: row;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .app-container {
+      grid-template-areas:
+        "header header header header"
+        "sidebar main-content right-sidebar right-sidebar";
+      grid-template-columns: 1fr 2fr 1fr 1fr;
+      grid-template-rows: auto 1fr;
+    }
   }
 </style>
